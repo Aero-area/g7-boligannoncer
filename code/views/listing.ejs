@@ -7,20 +7,74 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Boligannonce</h1>
+    <main class="page page--details">
+        <div class="container">
+            <div class="details-header">
+                <a href="/" class="back-link">
+                    <span class="back-link__icon">←</span>
+                    <span>Tilbage til forsiden</span>
+                </a>
+            </div>
 
-    <p><strong>Adresse:</strong> <%= bolig.adresse %></p>
-    <p><strong>Boligtype:</strong> <%= bolig.boligtype %></p>
-    <p><strong>Pris:</strong> <%= bolig.pris %> kr.</p>
-    <p><strong>Pris pr. m²:</strong> <%= bolig.pris_pr_m2 %> kr.</p>
-    <p><strong>Størrelse:</strong> <%= bolig.stoerrelse_m2 %> m²</p>
-    <p><strong>Antal værelser:</strong> <%= bolig.antal_vaerelser %></p>
-    <p><strong>Opførelsesår:</strong> <%= bolig.opfoerelsesaar %></p>
-    <p><strong>Oprettelsesdato:</strong> <%= bolig.oprettelsesdato %></p>
-    <p><strong>Visninger:</strong> <%= bolig.visninger %></p>
-    <p><strong>Status:</strong> <%= bolig.er_aktiv ? 'Aktiv' : 'Solgt' %></p>
+            <section class="details-hero">
+                <p class="details-hero__eyebrow">Boligannonce</p>
+                <h1 class="details-hero__title"><%= bolig.adresse %></h1>
+            </section>
 
-    <p><a href="/">Tilbage til forsiden</a></p>
+            <section class="details-section">
+                <div class="details-grid">
+                    <article class="detail-card">
+                        <p class="detail-card__label">Boligtype</p>
+                        <p class="detail-card__value"><%= bolig.boligtype %></p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Pris</p>
+                        <p class="detail-card__value"><%= Number(bolig.pris).toLocaleString('da-DK') %> kr.</p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Pris pr. m²</p>
+                        <p class="detail-card__value"><%= Number(bolig.pris_pr_m2).toLocaleString('da-DK') %> kr.</p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Størrelse</p>
+                        <p class="detail-card__value"><%= bolig.stoerrelse_m2 %> m²</p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Antal værelser</p>
+                        <p class="detail-card__value"><%= bolig.antal_vaerelser %></p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Opførelsesår</p>
+                        <p class="detail-card__value"><%= bolig.opfoerelsesaar %></p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Oprettelsesdato</p>
+                        <p class="detail-card__value"><%= new Date(bolig.oprettelsesdato).toLocaleDateString('da-DK') %></p>
+                    </article>
+
+                    <article class="detail-card">
+                        <p class="detail-card__label">Visninger</p>
+                        <p class="detail-card__value"><%= bolig.visninger %></p>
+                    </article>
+
+                    <article class="detail-card detail-card--status">
+                        <p class="detail-card__label">Status</p>
+                        <p class="detail-card__value">
+                            <span class="status-badge <%= bolig.er_aktiv ? 'status-badge--active' : 'status-badge--sold' %>">
+                                <%= bolig.er_aktiv ? 'Aktiv' : 'Solgt' %>
+                            </span>
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
 
     <script src="/app.js"></script>
 </body>

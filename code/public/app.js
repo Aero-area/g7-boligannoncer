@@ -2,16 +2,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-listing-form');
     const message = document.getElementById('form-message');
 
-    if (!form) {
+    if (!form || !message) {
         return;
     }
+
+    const showMessage = (text, type) => {
+        message.textContent = text;
+        message.classList.remove('form-message--success', 'form-message--error');
+
+        if (type === 'success') {
+            message.classList.add('form-message--success');
+        }
+
+        if (type === 'error') {
+            message.classList.add('form-message--error');
+        }
+    };
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
+        showMessage('', '');
+
         const formData = {
-            adresse: form.adresse.value,
-            boligtype: form.boligtype.value,
+            adresse: form.adresse.value.trim(),
+            boligtype: form.boligtype.value.trim(),
             pris: Number(form.pris.value),
             stoerrelse_m2: Number(form.stoerrelse_m2.value),
             antal_vaerelser: Number(form.antal_vaerelser.value),
@@ -29,17 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
 
-            message.textContent = result.message;
-
             if (!response.ok) {
+                showMessage(result.message || 'Fejl ved oprettelse af boligannonce', 'error');
                 return;
             }
 
+            showMessage(result.message || 'Boligannonce oprettet', 'success');
             form.reset();
-            window.location.reload();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 700);
         } catch (error) {
-            console.error(error);
-            message.textContent = 'Serverfejl ved oprettelse af boligannonce';
+            console.error('Fejl i client-side POST request:', error);
+            showMessage('Serverfejl ved oprettelse af boligannonce', 'error');
         }
     });
 });
