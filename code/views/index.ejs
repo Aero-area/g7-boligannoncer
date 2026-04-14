@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boligannoncer</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Boligannoncer</h1>
+
+    <section>
+        <h2>Tilføj ny boligannonce</h2>
+        <form id="add-listing-form">
+            <div>
+                <label for="adresse">Adresse</label>
+                <input type="text" id="adresse" name="adresse" required>
+            </div>
+
+            <div>
+                <label for="boligtype">Boligtype</label>
+                <input type="text" id="boligtype" name="boligtype" required>
+            </div>
+
+            <div>
+                <label for="pris">Pris</label>
+                <input type="number" id="pris" name="pris" min="1" required>
+            </div>
+
+            <div>
+                <label for="stoerrelse_m2">Størrelse (m²)</label>
+                <input type="number" id="stoerrelse_m2" name="stoerrelse_m2" min="1" required>
+            </div>
+
+            <div>
+                <label for="antal_vaerelser">Antal værelser</label>
+                <input type="number" id="antal_vaerelser" name="antal_vaerelser" min="1" required>
+            </div>
+
+            <div>
+                <label for="opfoerelsesaar">Opførelsesår</label>
+                <input type="number" id="opfoerelsesaar" name="opfoerelsesaar" min="1800" max="2100" required>
+            </div>
+
+            <button type="submit">Opret annonce</button>
+        </form>
+
+        <p id="form-message"></p>
+    </section>
+
+    <section>
+        <h2>Seneste boligannoncer</h2>
+
+        <% if (boligannoncer.length === 0) { %>
+            <p>Ingen boligannoncer fundet.</p>
+        <% } else { %>
+            <ul>
+                <% boligannoncer.forEach(bolig => { %>
+                    <li>
+                        <a href="/listing/<%= bolig.id %>">
+                            <strong><%= bolig.adresse %></strong>
+                        </a><br>
+                        Størrelse: <%= bolig.stoerrelse_m2 %> m²<br>
+                        Visninger: <%= bolig.visninger %><br>
+                        Pris: <%= bolig.pris %> kr.
+                    </li>
+                    <br>
+                <% }) %>
+            </ul>
+        <% } %>
+    </section>
+
+    <script src="/app.js"></script>
+</body>
+</html>

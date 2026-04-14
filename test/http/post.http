@@ -1,0 +1,37 @@
+POST http://localhost:3000/add-listing
+Content-Type: application/json
+
+{
+  "adresse": "Testvej 99, 2100 Koebenhavn O",
+  "boligtype": "Lejlighed",
+  "pris": 2750000,
+  "stoerrelse_m2": 72,
+  "antal_vaerelser": 3,
+  "opfoerelsesaar": 2008
+}
+
+###
+POST http://localhost:3000/add-listing
+Content-Type: application/json
+
+{
+  "adresse": "Testgade 12, 5000 Odense C",
+  "boligtype": "Lejlighed",
+  "pris": 2995000,
+  "stoerrelse_m2": 81,
+  "antal_vaerelser": 3,
+  "opfoerelsesaar": 2006
+}
+
+###
+POST http://localhost:3000/add-listing
+Content-Type: application/json
+
+{
+  "adresse": "' OR 1=1; --",
+  "boligtype": "Lejlighed",
+  "pris": 1000000,
+  "stoerrelse_m2": 50,
+  "antal_vaerelser": 2,
+  "opfoerelsesaar": 2010
+}

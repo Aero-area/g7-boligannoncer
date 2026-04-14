@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boligannonce</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Boligannonce</h1>
+
+    <p><strong>Adresse:</strong> <%= bolig.adresse %></p>
+    <p><strong>Boligtype:</strong> <%= bolig.boligtype %></p>
+    <p><strong>Pris:</strong> <%= bolig.pris %> kr.</p>
+    <p><strong>Pris pr. m²:</strong> <%= bolig.pris_pr_m2 %> kr.</p>
+    <p><strong>Størrelse:</strong> <%= bolig.stoerrelse_m2 %> m²</p>
+    <p><strong>Antal værelser:</strong> <%= bolig.antal_vaerelser %></p>
+    <p><strong>Opførelsesår:</strong> <%= bolig.opfoerelsesaar %></p>
+    <p><strong>Oprettelsesdato:</strong> <%= bolig.oprettelsesdato %></p>
+    <p><strong>Visninger:</strong> <%= bolig.visninger %></p>
+    <p><strong>Status:</strong> <%= bolig.er_aktiv ? 'Aktiv' : 'Solgt' %></p>
+
+    <p><a href="/">Tilbage til forsiden</a></p>
+
+    <script src="/app.js"></script>
+</body>
+</html>
