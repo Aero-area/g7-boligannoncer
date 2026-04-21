@@ -9,6 +9,7 @@
 <body>
     <main class="page page--details">
         <div class="container">
+            <!-- Navigation -->
             <div class="details-header">
                 <a href="/" class="back-link">
                     <span class="back-link__icon">←</span>
@@ -16,11 +17,13 @@
                 </a>
             </div>
 
+            <!-- Boligens overskrift -->
             <section class="details-hero">
                 <p class="details-hero__eyebrow">Boligannonce</p>
                 <h1 class="details-hero__title"><%= bolig.adresse %></h1>
             </section>
 
+            <!-- Grid med alle detaljer om boligen -->
             <section class="details-section">
                 <div class="details-grid">
                     <article class="detail-card">
@@ -63,6 +66,7 @@
                         <p class="detail-card__value"><%= bolig.visninger %></p>
                     </article>
 
+                    <!-- Tjek om boligen er aktiv for at vise den rette status-badge -->
                     <article class="detail-card detail-card--status">
                         <p class="detail-card__label">Status</p>
                         <p class="detail-card__value">

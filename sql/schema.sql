@@ -1,6 +1,8 @@
+-- 1. Nulstil databasen ved at fjerne eksisterende tabel, så vi får en "clean slate"
 DROP TABLE IF EXISTS Boligannonce;
 GO
 
+-- 2. Opret selve tabellen med automatisk tildelt ID og standardværdier
 CREATE TABLE Boligannonce (
     id INT IDENTITY(1,1) NOT NULL,
     adresse VARCHAR(255) NOT NULL,
@@ -13,6 +15,7 @@ CREATE TABLE Boligannonce (
     visninger INT NOT NULL DEFAULT 0,
     er_aktiv BIT NOT NULL DEFAULT 1,
 
+    -- 3. Definer constraints: Sikr primærnøglen og bloker meningsløse data (negative tal)
     CONSTRAINT PK_Boligannonce PRIMARY KEY (id),
     CONSTRAINT CK_Boligannonce_Pris CHECK (pris >= 0),
     CONSTRAINT CK_Boligannonce_Stoerrelse CHECK (stoerrelse_m2 > 0),
@@ -21,8 +24,7 @@ CREATE TABLE Boligannonce (
 );
 GO
 
-
-
+-- 4. Indsæt et udvalg af testdata (seeding), så vi har boliger at vise i frontenden
 INSERT INTO Boligannonce (
     adresse,
     boligtype,
@@ -42,6 +44,7 @@ VALUES
 ('Skovbrynet 21, 2800 Kongens Lyngby', 'Raekkehus', 4595000.00, 126, 5, 2012);
 GO
 
+-- 5. Opdater en enkelt annonce til status "solgt" (inaktiv) for at simulere virkelig brug
 UPDATE Boligannonce
 SET er_aktiv = 0
 WHERE id = 5;

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boligannoncer</title>
     <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
+    <!-- Topsektion -->
     <header class="hero">
         <div class="container hero__content">
             <p class="hero__eyebrow">Boligplatform</p>
@@ -17,6 +20,7 @@
 
     <main class="page">
         <div class="container">
+            <!-- Formularsektion til oprettelse af nye annoncer -->
             <section class="form-section">
                 <div class="form-card">
                     <h2 class="section-title form-card__title">Tilføj ny boligannonce</h2>
@@ -24,74 +28,36 @@
                     <form id="add-listing-form" class="listing-form">
                         <div class="form-group form-group--full">
                             <label for="adresse">Adresse</label>
-                            <input
-                                type="text"
-                                id="adresse"
-                                name="adresse"
-                                placeholder="Adresse"
-                                required
-                            >
+                            <input type="text" id="adresse" name="adresse" placeholder="Adresse" required>
                         </div>
 
                         <div class="form-group form-group--full">
                             <label for="boligtype">Boligtype</label>
-                            <input
-                                type="text"
-                                id="boligtype"
-                                name="boligtype"
-                                placeholder="Boligtype"
-                                required
-                            >
+                            <input type="text" id="boligtype" name="boligtype" placeholder="Boligtype" required>
                         </div>
 
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="pris">Pris (DKK)</label>
-                                <input
-                                    type="number"
-                                    id="pris"
-                                    name="pris"
-                                    placeholder="Pris (DKK)"
-                                    min="1"
-                                    required
-                                >
+                                <input type="number" id="pris" name="pris" placeholder="Pris (DKK)" min="1" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="stoerrelse_m2">Størrelse (m²)</label>
-                                <input
-                                    type="number"
-                                    id="stoerrelse_m2"
-                                    name="stoerrelse_m2"
-                                    placeholder="m²"
-                                    min="1"
-                                    required
-                                >
+                                <input type="number" id="stoerrelse_m2" name="stoerrelse_m2" placeholder="m²" min="1"
+                                    required>
                             </div>
 
                             <div class="form-group">
                                 <label for="antal_vaerelser">Antal værelser</label>
-                                <input
-                                    type="number"
-                                    id="antal_vaerelser"
-                                    name="antal_vaerelser"
-                                    placeholder="Antal værelser"
-                                    min="1"
-                                    required
-                                >
+                                <input type="number" id="antal_vaerelser" name="antal_vaerelser"
+                                    placeholder="Antal værelser" min="1" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="opfoerelsesaar">Opførelsesår</label>
-                                <input
-                                    type="number"
-                                    id="opfoerelsesaar"
-                                    name="opfoerelsesaar"
-                                    placeholder="År"
-                                    min="1800"
-                                    max="2100"
-                                    required
-                                >
+                                <input type="number" id="opfoerelsesaar" name="opfoerelsesaar" placeholder="År"
+                                    min="1800" max="2100" required>
                             </div>
                         </div>
 
@@ -100,51 +66,65 @@
                         </button>
                     </form>
 
+                    <!-- Område til succes- og fejlbeskeder styret af app.js -->
                     <p id="form-message" class="form-message" aria-live="polite"></p>
                 </div>
             </section>
 
+            <!-- Sektion for generering og visning af annoncer -->
             <section class="listings-section">
                 <div class="section-header">
                     <h2 class="section-title">Seneste boligannoncer</h2>
                 </div>
 
-                <% if (boligannoncer.length === 0) { %>
+                <!-- Tjek om der er modtaget annoncer fra databasen -->
+                <% if (boligannoncer.length===0) { %>
+                    <!-- Empty-state: Vises brugeren hvis databasen er tom -->
                     <div class="empty-state">
                         <p>Ingen boligannoncer fundet.</p>
                     </div>
-                <% } else { %>
-                    <div class="listing-grid">
-                        <% boligannoncer.forEach(bolig => { %>
-                            <a href="/listing/<%= bolig.id %>" class="listing-card">
-                                <div class="listing-card__content">
-                                    <h3 class="listing-card__title"><%= bolig.adresse %></h3>
+                    <% } else { %>
+                        <div class="listing-grid">
+                            <!-- Loop igennem alle boligannoncer og opret et klikbart kort for hver -->
+                            <% boligannoncer.forEach(bolig=> { %>
+                                <a href="/listing/<%= bolig.id %>" class="listing-card">
+                                    <div class="listing-card__content">
+                                        <h3 class="listing-card__title">
+                                            <%= bolig.adresse %>
+                                        </h3>
 
-                                    <div class="listing-card__meta">
-                                        <p class="listing-card__meta-item">
-                                            <span class="listing-card__label">Størrelse:</span>
-                                            <span class="listing-card__value"><%= bolig.stoerrelse_m2 %> m²</span>
-                                        </p>
+                                        <div class="listing-card__meta">
+                                            <p class="listing-card__meta-item">
+                                                <span class="listing-card__label">Størrelse:</span>
+                                                <span class="listing-card__value">
+                                                    <%= bolig.stoerrelse_m2 %> m²
+                                                </span>
+                                            </p>
 
-                                        <p class="listing-card__meta-item">
-                                            <span class="listing-card__label">Visninger:</span>
-                                            <span class="listing-card__value"><%= bolig.visninger %></span>
-                                        </p>
+                                            <p class="listing-card__meta-item">
+                                                <span class="listing-card__label">Visninger:</span>
+                                                <span class="listing-card__value">
+                                                    <%= bolig.visninger %>
+                                                </span>
+                                            </p>
 
-                                        <p class="listing-card__meta-item">
-                                            <span class="listing-card__label">Pris:</span>
-                                            <span class="listing-card__value"><%= Number(bolig.pris).toLocaleString('da-DK') %> kr.</span>
-                                        </p>
+                                            <p class="listing-card__meta-item">
+                                                <span class="listing-card__label">Pris:</span>
+                                                <span class="listing-card__value">
+                                                    <%= Number(bolig.pris).toLocaleString('da-DK') %> kr.
+                                                </span>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        <% }) %>
-                    </div>
-                <% } %>
+                                </a>
+                                <% }) %>
+                        </div>
+                        <% } %>
             </section>
         </div>
     </main>
 
     <script src="/app.js"></script>
 </body>
+
 </html>

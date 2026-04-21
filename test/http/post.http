@@ -1,3 +1,4 @@
+### 1. Test af succesfuld oprettelse af en normal boligannonce (gyldig JSON-body)
 POST http://localhost:3000/add-listing
 Content-Type: application/json
 
@@ -10,7 +11,7 @@ Content-Type: application/json
   "opfoerelsesaar": 2008
 }
 
-###
+### 2. Ekstra post-test med et andet sæt testdata for at verificere forløbet
 POST http://localhost:3000/add-listing
 Content-Type: application/json
 
@@ -23,7 +24,7 @@ Content-Type: application/json
   "opfoerelsesaar": 2006
 }
 
-###
+### 3. Sikkerhedstest: Tjek at SQL-injection i inputfeltet ikke ødelægger databasen
 POST http://localhost:3000/add-listing
 Content-Type: application/json
 

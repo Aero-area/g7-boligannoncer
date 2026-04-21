@@ -47,6 +47,7 @@ app.get('/', async (req, res) => {
 // Opdaterer visninger i databasen og henter derefter den valgte annonce
 app.get('/listing/:id', async (req, res) => {
     try {
+        // 1. Tjek og valider id fra URL'en
         const id = Number(req.params.id);
 
         if (!Number.isInteger(id) || id <= 0) {
@@ -55,6 +56,7 @@ app.get('/listing/:id', async (req, res) => {
 
         const pool = await poolPromise;
 
+        // 2. Tæl en ekstra visning i databasen
         await pool.request()
             .input('id', id)
             .query(`
@@ -63,6 +65,7 @@ app.get('/listing/:id', async (req, res) => {
                 WHERE id = @id
             `);
 
+        // 3. Hent annoncens data og tjek om boligen findes
         const result = await pool.request()
             .input('id', id)
             .query(`
@@ -76,6 +79,8 @@ app.get('/listing/:id', async (req, res) => {
         }
 
         const bolig = result.recordset[0];
+        
+        // 4. Udregn kvadratmeterpris før data sendes til viewet
         const prisPrM2 = calculatePricePerSqm(bolig.pris, bolig.stoerrelse_m2);
 
         res.render('listing', {
@@ -94,6 +99,7 @@ app.get('/listing/:id', async (req, res) => {
 // Opretter en ny boligannonce i databasen
 app.post('/add-listing', async (req, res) => {
     try {
+        // 1. Udpak og typecast input fra request body
         const {
             adresse,
             boligtype,
@@ -108,6 +114,7 @@ app.post('/add-listing', async (req, res) => {
         const parsedVaerelser = Number(antal_vaerelser);
         const parsedOpfoerelsesaar = Number(opfoerelsesaar);
 
+        // 2. Inputvalidering: Returner 400 Bad Request ved fejl
         if (!adresse || adresse.trim() === '') {
             return res.status(400).json({
                 message: 'Adresse skal udfyldes'
@@ -148,6 +155,7 @@ app.post('/add-listing', async (req, res) => {
             });
         }
 
+        // 3. Indsæt den nye annonce sikkert i databasen
         const pool = await poolPromise;
 
         await pool.request()
@@ -176,6 +184,7 @@ app.post('/add-listing', async (req, res) => {
                 )
             `);
 
+        // 4. Send et positivt JSON-svar tilbage til klienten
         res.status(201).json({
             message: 'Boligannonce oprettet'
         });
@@ -195,6 +204,7 @@ app.get('/health', (req, res) => {
 // Starter først serveren, når databaseforbindelsen virker
 async function startServer() {
     try {
+        // 1. Sikr databaseforbindelsen før vi tillader trafik (port lytning)
         await poolPromise;
         console.log('Databaseforbindelse testet OK');
 
