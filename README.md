@@ -26,14 +26,17 @@ test/http/: Indeholder .http-filer til test af vores API.
 For at starte systemet lokalt, skal censor åbne en terminal, navigere til projektets rodmappe og køre følgende kommandoer.
 
 1. Installer først alle nødvendige afhængigheder via npm:
-```bash
-npm install
-```
 
-2. Start applikationen:
-```bash
+npm install
+
+2. Åben code-mappen:
+
+cd code
+
+3. Start applikationen:
+
 npm start
-```
+
 Alternativ under udvikling: npm run dev starter serveren i watch-mode
 
 ## Sådan afprøves systemet (Afprøvning)
