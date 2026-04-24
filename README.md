@@ -4,6 +4,13 @@
 For at kunne afvikle dette projekt lokalt, kræves følgende:
 Node.js og npm (Node Package Manager) skal være installeret.
 En gyldig .env fil placeret i rodmappen (samme sted som package.json). Denne fil skal indeholde forbindelsesoplysninger til vores Azure SQL-database.
+Udfyld følgende værdier i .env filen:
+DB_USER=
+DB_PASSWORD=
+DB_SERVER=
+DB_DATABASE=
+DB_PORT=
+PORT=
 
 ## Projektstruktur
 Systemet er opdelt i følgende overordnede lag for at adskille ansvarsområder og skabe kontekst:
@@ -29,7 +36,7 @@ For at starte systemet lokalt, skal censor åbne en terminal, navigere til proje
 
 npm install
 
-2. Åben code-mappen:
+2. Pben code mappen:
 
 cd code
 
